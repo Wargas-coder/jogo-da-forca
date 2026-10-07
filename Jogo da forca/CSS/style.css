@@ -1,0 +1,134 @@
+/* Tema "caderno quadriculado": a forca nasceu no papel. */
+:root {
+  --papel: #EEF3F8;
+  --grade: #D3DFEE;
+  --tinta: #1B2F8A;      /* caneta azul */
+  --texto: #14213D;
+  --erro: #B3112B;       /* caneta vermelha de correção */
+  --acerto: #136F4D;
+  --folha: #FFFFFF;
+  --borda: #8FA3C4;
+  --fonte-manual: 'Patrick Hand', 'Segoe Print', 'Comic Sans MS', cursive;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --papel: #121A2B; --grade: #1D2940; --tinta: #9DB4FF; --texto: #E8EEFB;
+    --erro: #FF7A8E; --acerto: #5ED3A1; --folha: #18233A; --borda: #4A6088;
+  }
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  font: 18px/1.5 system-ui, sans-serif;
+  color: var(--texto);
+  background-color: var(--papel);
+  background-image:
+    linear-gradient(var(--grade) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grade) 1px, transparent 1px);
+  background-size: 28px 28px;
+  min-height: 100vh;
+}
+main { max-width: 1100px; margin: 0 auto; padding: 20px 16px 40px; }
+[hidden] { display: none !important; }
+
+h1, h2 { font-family: var(--fonte-manual); color: var(--tinta); font-weight: 400; margin: 0 0 8px; }
+h1 { font-size: 3rem; text-align: center; }
+h2 { font-size: 2rem; }
+.sub { text-align: center; margin-top: 0; }
+
+.tela { background: var(--folha); border: 2px solid var(--borda); border-radius: 6px; padding: 24px; }
+.tela.estreita { max-width: 440px; margin: 8vh auto 0; }
+
+label { display: block; margin: 14px 0; font-weight: 600; }
+input[type=text], input:not([type]), input[type=password] {
+  display: block; width: 100%; margin-top: 4px; padding: 10px 12px; font: inherit;
+  color: var(--texto); background: var(--papel); border: 2px solid var(--borda); border-radius: 4px;
+}
+label.check { display: flex; gap: 10px; align-items: center; font-weight: 400; }
+label.check input { width: 22px; height: 22px; }
+
+button {
+  font: inherit; font-weight: 700; cursor: pointer; padding: 10px 18px;
+  color: #fff; background: var(--tinta); border: 2px solid var(--tinta); border-radius: 4px;
+}
+@media (prefers-color-scheme: dark) { button { color: #0B1220; } }
+button.sec { background: transparent; color: var(--tinta); }
+button:hover:not(:disabled) { filter: brightness(1.12); }
+:focus-visible { outline: 3px solid var(--erro); outline-offset: 2px; }
+button:disabled { cursor: not-allowed; }
+
+.abas { display: flex; gap: 8px; margin: 12px 0; }
+.abas button { flex: 1; background: transparent; color: var(--tinta); }
+.abas button[aria-selected=true] { background: var(--tinta); color: #fff; }
+@media (prefers-color-scheme: dark) { .abas button[aria-selected=true] { color: #0B1220; } }
+#form-login button[type=submit], #btn-iniciar { width: 100%; margin-top: 8px; font-size: 1.1rem; }
+
+.msg { min-height: 1.5em; margin: 4px 0; color: var(--erro); font-weight: 600; }
+
+.topo { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; align-items: center;
+  padding-bottom: 12px; margin-bottom: 16px; border-bottom: 2px dashed var(--borda); }
+
+.duas-colunas { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+fieldset { border: 2px solid var(--borda); border-radius: 4px; margin: 14px 0; padding: 8px 12px 12px; }
+legend { font-weight: 700; padding: 0 6px; }
+.opcoes { display: flex; flex-wrap: wrap; gap: 8px; }
+.opcoes label { margin: 0; }
+.opcoes input { position: absolute; opacity: 0; }
+.opcoes span {
+  display: inline-block; padding: 8px 14px; border: 2px solid var(--borda); border-radius: 4px; cursor: pointer; font-weight: 600;
+}
+.opcoes input:checked + span { background: var(--tinta); color: #fff; border-color: var(--tinta); }
+.opcoes input:checked + span::before { content: '✓ '; }
+.opcoes input:focus-visible + span { outline: 3px solid var(--erro); outline-offset: 2px; }
+@media (prefers-color-scheme: dark) { .opcoes input:checked + span { color: #0B1220; } }
+
+/* Histórico sempre visível */
+.historico { border: 2px solid var(--borda); border-radius: 4px; padding: 14px; align-self: start; }
+.historico h3 { font-family: var(--fonte-manual); font-weight: 400; font-size: 1.5rem; color: var(--tinta); margin: 0 0 8px; }
+.placar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; text-align: center; margin-bottom: 10px; }
+.placar div { border: 2px solid var(--borda); border-radius: 4px; padding: 6px 2px; }
+.placar b { display: block; font-size: 1.6rem; font-family: var(--fonte-manual); font-weight: 400; }
+.placar .v b { color: var(--acerto); } .placar .d b { color: var(--erro); }
+.historico ul { list-style: none; margin: 0; padding: 0; font-size: .95rem; }
+.historico li { padding: 6px 0; border-top: 1px dashed var(--borda); }
+.historico .ok { color: var(--acerto); font-weight: 700; }
+.historico .x { color: var(--erro); font-weight: 700; }
+.historico small { display: block; opacity: .8; }
+.link { background: none; border: none; color: var(--tinta); text-decoration: underline; padding: 6px 0 0; font-weight: 400; }
+
+/* Jogo */
+.layout-jogo { display: grid; grid-template-columns: 240px 1fr 280px; gap: 24px; }
+#forca { width: 100%; max-width: 240px; }
+#forca line, #forca circle { fill: none; stroke: var(--tinta); stroke-width: 4; stroke-linecap: round; }
+#forca .estrutura line { stroke: var(--borda); stroke-width: 6; }
+.parte { opacity: 0; transition: opacity .25s; }
+.parte.visivel { opacity: 1; stroke: var(--erro) !important; }
+.contadores { margin: 6px 0; font-weight: 600; }
+
+#palavra { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 12px; }
+#palavra span {
+  width: 2ch; min-width: 34px; text-align: center; font: 2.2rem/1.4 var(--fonte-manual);
+  border-bottom: 4px solid var(--tinta); color: var(--tinta);
+}
+#palavra span.perdida { color: var(--erro); border-color: var(--erro); }
+.dica { font-style: italic; }
+.status { font-weight: 700; font-size: 1.15rem; padding: 8px 12px; border: 2px solid var(--borda); border-radius: 4px; }
+.status.vitoria { border-color: var(--acerto); color: var(--acerto); }
+.status.derrota { border-color: var(--erro); color: var(--erro); }
+.letras { margin: 6px 0; }
+.letras span { font-weight: 700; letter-spacing: 2px; }
+
+#teclado { display: flex; flex-wrap: wrap; gap: 6px; margin: 14px 0; max-width: 520px; }
+#teclado button { width: 44px; height: 44px; padding: 0; font-size: 1.05rem; }
+#teclado button.certa { background: var(--acerto); border-color: var(--acerto); color: #fff; }
+#teclado button.certa::after { content: ' ✓'; font-size: .7em; }
+#teclado button.errada { background: transparent; border-color: var(--erro); color: var(--erro); text-decoration: line-through; }
+#teclado button.errada::after { content: ' ✗'; font-size: .7em; text-decoration: none; display: inline-block; }
+.acoes { display: flex; flex-wrap: wrap; gap: 10px; }
+
+@media (max-width: 900px) {
+  .layout-jogo { grid-template-columns: 1fr; }
+  .duas-colunas { grid-template-columns: 1fr; }
+  #forca { max-width: 200px; display: block; margin: 0 auto; }
+}
+@media (prefers-reduced-motion: reduce) { .parte { transition: none; } }

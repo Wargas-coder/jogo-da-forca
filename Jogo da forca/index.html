@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jogo da Forca</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="CSS/style.css">
+</head>
+<body>
+<main>
+
+  <!-- TELA 1: LOGIN -->
+  <section id="tela-login" class="tela estreita">
+    <h1>Jogo da Forca</h1>
+    <p class="sub">Entre para guardar seu histórico de partidas.</p>
+    <div class="abas" role="tablist">
+      <button type="button" id="aba-entrar" role="tab" aria-selected="true">Entrar</button>
+      <button type="button" id="aba-criar" role="tab" aria-selected="false">Criar conta</button>
+    </div>
+    <form id="form-login" novalidate>
+      <label>Usuário
+        <input id="login-usuario" autocomplete="username" maxlength="20">
+      </label>
+      <label>Senha
+        <input id="login-senha" type="password" autocomplete="current-password">
+      </label>
+      <label id="lbl-confirma" hidden>Confirmar senha
+        <input id="login-confirma" type="password" autocomplete="new-password">
+      </label>
+      <p id="login-msg" class="msg" role="alert"></p>
+      <button type="submit" id="btn-login">Entrar</button>
+    </form>
+  </section>
+
+  <!-- TELA 2: ENTRADA DO JOGADOR -->
+  <section id="tela-jogador" class="tela" hidden>
+    <header class="topo">
+      <span>Conta: <b id="usuario-logado"></b></span>
+      <button type="button" id="btn-sair" class="sec">Sair</button>
+    </header>
+    <div class="duas-colunas">
+      <div>
+        <h2>Prepare a partida</h2>
+        <label>Nome do jogador
+          <input id="nome-jogador" maxlength="20">
+        </label>
+        <fieldset>
+          <legend>Categoria</legend>
+          <div id="opcoes-categoria" class="opcoes"></div>
+        </fieldset>
+        <fieldset>
+          <legend>Dificuldade</legend>
+          <div id="opcoes-dificuldade" class="opcoes"></div>
+        </fieldset>
+        <label class="check">
+          <input type="checkbox" id="chk-teclado" checked> Usar teclado virtual
+        </label>
+        <p id="setup-msg" class="msg" role="alert"></p>
+        <button type="button" id="btn-iniciar">Iniciar partida</button>
+      </div>
+      <aside class="historico" id="historico-setup" aria-label="Histórico"></aside>
+    </div>
+  </section>
+
+  <!-- TELA 3: JOGO -->
+  <section id="tela-jogo" class="tela" hidden>
+    <header class="topo">
+      <span>Jogador: <b id="j-nome"></b></span>
+      <span>Categoria: <b id="j-cat"></b></span>
+      <span>Dificuldade: <b id="j-dif"></b></span>
+    </header>
+    <div class="layout-jogo">
+      <div class="coluna">
+        <svg id="forca" viewBox="0 0 200 240" role="img" aria-label="Desenho da forca">
+          <g class="estrutura">
+            <line x1="20" y1="230" x2="120" y2="230"/>
+            <line x1="50" y1="230" x2="50" y2="20"/>
+            <line x1="50" y1="20" x2="130" y2="20"/>
+            <line x1="130" y1="20" x2="130" y2="45"/>
+          </g>
+          <g class="boneco">
+            <circle id="p0" class="parte" cx="130" cy="60" r="15"/>
+            <line id="p1" class="parte" x1="130" y1="75" x2="130" y2="140"/>
+            <line id="p2" class="parte" x1="130" y1="90" x2="105" y2="120"/>
+            <line id="p3" class="parte" x1="130" y1="90" x2="155" y2="120"/>
+            <line id="p4" class="parte" x1="130" y1="140" x2="110" y2="185"/>
+            <line id="p5" class="parte" x1="130" y1="140" x2="150" y2="185"/>
+            <circle id="p6" class="parte" cx="102" cy="124" r="5"/>
+            <circle id="p7" class="parte" cx="158" cy="124" r="5"/>
+            <line id="p8" class="parte" x1="110" y1="185" x2="97" y2="190"/>
+            <line id="p9" class="parte" x1="150" y1="185" x2="163" y2="190"/>
+          </g>
+        </svg>
+        <p class="contadores">Erros <b id="j-erros"></b>/<b id="j-max"></b> · Restam <b id="j-rest"></b></p>
+        <p class="contadores">Pontos da partida: <b id="j-pontos">0</b></p>
+      </div>
+
+      <div class="coluna">
+        <div id="palavra" aria-live="polite"></div>
+        <p class="dica">Dica: <span id="j-dica"></span></p>
+        <p id="status" class="status" role="status"></p>
+        <p class="letras">Corretas: <span id="l-certas"></span></p>
+        <p class="letras">Incorretas: <span id="l-erradas"></span></p>
+        <div id="teclado" aria-label="Teclado virtual"></div>
+        <div class="acoes">
+          <button type="button" id="btn-novo">Novo jogo</button>
+          <button type="button" id="btn-config" class="sec">Mudar categoria ou nível</button>
+        </div>
+      </div>
+
+      <aside class="historico" id="historico-jogo" aria-label="Histórico"></aside>
+    </div>
+  </section>
+
+</main>
+<script src="palavras.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
